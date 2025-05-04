@@ -1,9 +1,33 @@
-const fs = require('fs');
-if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env' });
-function convertToBool(text, fault = 'true') {
-    return text === fault ? true : false;
-}
-module.exports = {
-𝐋ᴀᴋᴀ-𝐌ᴅ=osAWTahY#0Q-XoGxy27qHEAJYmvCJz9UZ0DT93GdnuVk7WfYHNwg: process.env.𝐋ᴀᴋᴀ-𝐌ᴅ=osAWTahY#0Q-XoGxy27qHEAJYmvCJz9UZ0DT93GdnuVk7WfYHNwg || "𝐋ᴀᴋᴀ-𝐌ᴅ=osAWTahY#0Q-XoGxy27qHEAJYmvCJz9UZ0DT93GdnuVk7WfYHNwg",
-POSTGRESQL_URL: process.env.POSTGRESQL_URL === undefined ? 'postgresql://postgres:lakamd@db.ndduyrkebubwlbwiljee.supabase.co:5432/postgres' : process.env.POSTGRESQL_URL
-};
+name: Node.js CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start application
+      run: npm start
